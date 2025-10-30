@@ -1,16 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
-export default function Difficulty({
-  difficultyLevel,
-  onUpdateDifficulty,
-  showPopup,
-  updateShowPopup,
-}) {
-  const [selectedDiff, updateSelectedDiff] = useState(1);
+import { DifficultyContext } from "../../App";
+import { GameStartContext } from "../../App";
+import { ShowPopupContext } from "../../App";
 
-  useEffect(() => {
-    updateSelectedDiff(difficultyLevel);
-  }, []);
+export default function Difficulty() {
+  const [selectedDiff, updateSelectedDiff] = useState(1);
 
   const btn_u =
     "shadow-[6px_6px_0px_rgba(0,0,0,0.3)] hover:translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)] transition";
@@ -18,6 +13,15 @@ export default function Difficulty({
     "shadow-[inset_4px_4px_6px_rgba(0,0,0,0.25),inset_-4px_-4px_6px_rgba(255,255,255,0.5)]";
 
   const levels = ["easy", "medium", "hard"];
+  const DifficultyLevel = useContext(DifficultyContext);
+  const GameStart = useContext(GameStartContext);
+  const Popup = useContext(ShowPopupContext);
+
+  function handleGameStart() {
+    DifficultyLevel.updateDifficultyLevel(selectedDiff);
+    Popup.updateShowPopup(false);
+    GameStart.updateStarted(1);
+  }
   return (
     <div className="bg-yellow-300 border rounded-3xl shadow-md h-64 w-1/2 px-4 py-2 flex flex-col justify-around absolute inset-1/4 -inset-2/4 ">
       <div className="flex justify-between">
@@ -26,7 +30,7 @@ export default function Difficulty({
         </p>
         <XCircleIcon
           className="size-6 cursor-pointer"
-          onClick={() => updateShowPopup(false)}
+          onClick={() => Popup.updateShowPopup(false)}
         ></XCircleIcon>
       </div>
       <div className="flex justify-around">
@@ -42,10 +46,7 @@ export default function Difficulty({
           );
         })}
       </div>
-      <button
-        className={`ring-2 ${btn_u}`}
-        onClick={() => onUpdateDifficulty(selectedDiff)}
-      >
+      <button className={`ring-2 ${btn_u}`} onClick={() => handleGameStart()}>
         Start
       </button>
     </div>

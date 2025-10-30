@@ -63,13 +63,6 @@ function Profile() {
           <ArrowLongRightIcon className="size-6 " />
         </NavLink>
       </div>
-
-      <div className="text-4xl font-medium pt-8">
-        {new Date().getUTCHours() +
-          ":" +
-          new Date().getUTCMinutes() +
-          new Date().getUTCMinutes()}
-      </div>
     </div>
   );
 }

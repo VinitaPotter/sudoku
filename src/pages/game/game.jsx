@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./game.css";
 import NumberPad from "./game-numberPad";
 import Grid from "./game-grid";
 import Difficulty from "./game-difficulty";
-
+import { GameStartContext } from "../../App";
+import { ShowPopupContext } from "../../App";
 function Game() {
+  const GameStart = useContext(GameStartContext);
+  const Popup = useContext(ShowPopupContext);
+
   const [initial] = useState([
     [1, 2, 3, 4, 5, 6, 7, 8, 9],
     [4, 5, 6, 7, 8, 9, 1, 2, 3],
@@ -17,9 +21,6 @@ function Game() {
     [6, 7, 8, 9, 1, 2, 3, 4, 5],
   ]);
 
-  const [showPopup, updateShowPopup] = useState(true);
-  const [difficultyLevel, updateDifficultyLevel] = useState(0);
-  const [started, updateStarted] = useState(false);
   const [curNum, updateCurNum] = useState(0);
   const [warning, updateWarning] = useState(0);
   const [winner, updateWinner] = useState(false);
@@ -49,21 +50,24 @@ function Game() {
 
   function handleReplay() {
     updateWinner(false);
-    updateStarted(false);
+    GameStart.updateStarted(0);
     updateCurNum(0);
     setInitialData();
   }
 
   useEffect(() => {
-    if (started === true && JSON.stringify(valid) === JSON.stringify(grid)) {
+    if (
+      GameStart.started === 1 &&
+      JSON.stringify(valid) === JSON.stringify(grid)
+    ) {
       updateWinner(true);
     }
-  }, [grid, started]);
+  }, [grid, GameStart.started]);
 
   function handleCellClick(block, cell) {
-    if (started === false) {
+    if (GameStart.started === 0) {
       console.log("run only here");
-      updateStarted(true);
+      GameStart.updateStarted(1);
     }
     updateGrid((grid) => ({
       ...grid,
@@ -134,11 +138,6 @@ function Game() {
     setGrid();
   }
 
-  function handleDifficulty(value) {
-    updateDifficultyLevel(value);
-    updateStarted(true);
-    updateShowPopup(false);
-  }
   useEffect(() => {
     setInitialData();
   }, []);
@@ -155,16 +154,7 @@ function Game() {
           ""
         )}
       </div>
-      {showPopup ? (
-        <Difficulty
-          difficultyLevel={difficultyLevel}
-          onUpdateDifficulty={handleDifficulty}
-          showPopup={showPopup}
-          updateShowPopup={updateShowPopup}
-        ></Difficulty>
-      ) : (
-        ""
-      )}
+      {Popup.showPopup ? <Difficulty></Difficulty> : ""}
 
       <Grid
         grid={grid}

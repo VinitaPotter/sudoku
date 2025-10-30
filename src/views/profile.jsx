@@ -24,7 +24,7 @@ function Profile() {
           end
         >
           <p className="mr-2">Play</p>
-          <ArrowLongRightIcon className="size-6 " />
+          <ArrowLongRightIcon className="size-6" />
         </NavLink>
         <NavLink
           to="learn"

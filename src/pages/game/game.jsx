@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./game.css";
 import NumberPad from "./game-numberPad";
 import Grid from "./game-grid";
+import Difficulty from "./game-difficulty";
+
 function Game() {
   const [initial] = useState([
     [1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -14,7 +16,10 @@ function Game() {
     [3, 4, 5, 6, 7, 8, 9, 1, 2],
     [6, 7, 8, 9, 1, 2, 3, 4, 5],
   ]);
-  const [started, updateStared] = useState(false);
+
+  const [showPopup, updateShowPopup] = useState(true);
+  const [difficultyLevel, updateDifficultyLevel] = useState(0);
+  const [started, updateStarted] = useState(false);
   const [curNum, updateCurNum] = useState(0);
   const [warning, updateWarning] = useState(0);
   const [winner, updateWinner] = useState(false);
@@ -44,7 +49,7 @@ function Game() {
 
   function handleReplay() {
     updateWinner(false);
-    updateStared(false);
+    updateStarted(false);
     updateCurNum(0);
     setInitialData();
   }
@@ -58,7 +63,7 @@ function Game() {
   function handleCellClick(block, cell) {
     if (started === false) {
       console.log("run only here");
-      updateStared(true);
+      updateStarted(true);
     }
     updateGrid((grid) => ({
       ...grid,
@@ -129,6 +134,11 @@ function Game() {
     setGrid();
   }
 
+  function handleDifficulty(value) {
+    updateDifficultyLevel(value);
+    updateStarted(true);
+    updateShowPopup(false);
+  }
   useEffect(() => {
     setInitialData();
   }, []);
@@ -145,6 +155,16 @@ function Game() {
           ""
         )}
       </div>
+      {showPopup ? (
+        <Difficulty
+          difficultyLevel={difficultyLevel}
+          onUpdateDifficulty={handleDifficulty}
+          showPopup={showPopup}
+          updateShowPopup={updateShowPopup}
+        ></Difficulty>
+      ) : (
+        ""
+      )}
 
       <Grid
         grid={grid}

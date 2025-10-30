@@ -34,3 +34,7 @@
 .warning {
   background: red;
 }
+
+.custom-shadow {
+  box-shadow: 12px 12px 2px 1px rgb(0 0 255 / 0.2);
+}

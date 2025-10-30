@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./game.css";
+import NumberPad from "./game-numberPad";
+import Grid from "./game-grid";
 function Game() {
   const [initial] = useState([
     [1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -109,12 +111,6 @@ function Game() {
   }
   function setInitialData() {
     let initial_clone = initial.map((row) => [...row]);
-    // const random_1 = Math.floor(Math.random() * 9);
-    // const random_2 = Math.floor(Math.random() * 9);
-
-    // const temp = [...initial_clone[random_1]];
-    // initial_clone[random_1] = [...initial_clone[random_2]];
-    // initial_clone[random_2] = temp;
 
     const rows = Object.values(valid);
     const rowKeys = Object.keys(valid);
@@ -138,7 +134,7 @@ function Game() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col">
       <div>
         {winner ? (
           <>
@@ -150,45 +146,13 @@ function Game() {
         )}
       </div>
 
-      <div className="numbers">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
-          return (
-            <div
-              onClick={() => updateCurNum(num)}
-              key={num}
-              className={`number ${num === curNum ? "selected" : ""}`}
-            >
-              {num}
-            </div>
-          );
-        })}
-      </div>
-      <div className="grid">
-        {Object.entries(grid).map((block, index) => {
-          console.log({ userData });
-          return (
-            <div
-              key={index}
-              className={"block"}
-              style={{ gridArea: `block-${index}` }}
-            >
-              {Object.entries(block[1]).map((cell) => {
-                return (
-                  <div
-                    onClick={() => handleCellClick(block[0], cell[0])}
-                    key={cell[0]}
-                    className={`cell ${warning === cell[0] ? "warning" : ""} ${
-                      userData.includes(cell[0]) ? "user" : "computer"
-                    }`}
-                  >
-                    {cell[1] === 0 ? "" : cell[1]}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
-      </div>
+      <Grid
+        grid={grid}
+        userData={userData}
+        handleCellClick={handleCellClick}
+        warning={warning}
+      ></Grid>
+      <NumberPad currentNumber={curNum} updateCurrentNumber={updateCurNum} />
     </div>
   );
 }

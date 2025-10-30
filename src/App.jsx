@@ -1,13 +1,13 @@
 import "./App.css";
-import Game from "./pages/game";
-import Profile from "./components/profile";
-import AI from "./components/ai";
+import Profile from "./views/profile";
+import AI from "./views/ai";
+import Grid from "./views/grid";
 
 function App() {
   return (
     <div className="flex w-screen justify-between">
       <Profile></Profile>
-      <Game></Game>
+      <Grid></Grid>
       <AI></AI>
     </div>
   );

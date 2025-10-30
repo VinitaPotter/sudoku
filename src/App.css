@@ -1,0 +1,12 @@
+#root {
+  max-width: 100vw;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.monofett-regular {
+  font-family: "Monofett", monospace;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 6px;
+}

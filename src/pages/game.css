@@ -1,0 +1,49 @@
+.grid {
+  display: grid;
+  grid-template-areas: "block-0 block-1 block-2" "block-3 block-4 block-5" "block-6 block-7 block-8";
+  border: 1px solid blue;
+}
+.block {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  border: 1px solid blue;
+}
+
+.cell {
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid grey;
+  cursor: pointer;
+}
+
+.user {
+  font-weight: 800;
+}
+
+.computer {
+  front-weight: 900;
+  color: red;
+}
+
+.numbers {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.number {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: block;
+  cursor: grab;
+}
+
+.selected {
+  background: #ccc;
+}
+
+.warning {
+  background: red;
+}

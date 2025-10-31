@@ -11,7 +11,7 @@ function Profile() {
             className="h-48 w-48 m-auto rounded-xl border-8 border-2 border-amber-100 shadow-md shadow-rose-200)"
           />
         </div>
-        <div className="text-4xl ">Vinita</div>
+        <div className="text-4xl ">Sudoku</div>
       </div>
       <div className="h-1/3 flex flex-col justify-around">
         <NavLink

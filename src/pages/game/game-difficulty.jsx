@@ -20,7 +20,7 @@ export default function Difficulty() {
   function handleGameStart() {
     DifficultyLevel.updateDifficultyLevel(selectedDiff);
     Popup.updateShowPopup(false);
-    GameStart.updateStarted(1);
+    GameStart.updateStarted(true);
   }
   return (
     <div className="bg-yellow-300 border rounded-3xl shadow-md h-64 w-1/2 px-4 py-2 flex flex-col justify-around absolute inset-1/4 -inset-2/4 ">

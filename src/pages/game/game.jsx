@@ -32,14 +32,14 @@ function Game({ canDownload, children }) {
 
   function handleReplay() {
     updateWinner(false);
-    GameStart.updateStarted(0);
+    GameStart.updateStarted(false);
     updateCurNum(0);
     setInitialData();
   }
 
   useEffect(() => {
     if (
-      GameStart.started === 1 &&
+      GameStart.started &&
       JSON.stringify(initial) === JSON.stringify(playableSudoku)
     ) {
       updateWinner(true);

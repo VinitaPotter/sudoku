@@ -12,7 +12,7 @@ export const ShowPopupContext = createContext(false);
 function App() {
   const [difficultyLevel, updateDifficultyLevel] = useState(0);
   const [errors, updateErrors] = useState(0);
-  const [started, updateStarted] = useState(0);
+  const [started, updateStarted] = useState(false);
   const [restart, updateRestart] = useState(0);
   const [showPopup, updateShowPopup] = useState(false);
   const location = useLocation();

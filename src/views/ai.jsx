@@ -17,13 +17,17 @@ function AI() {
   const DifficultyLevel = useContext(DifficultyContext);
 
   const levels = ["easy", "medium", "hard"];
+  const [isPaused, updateIsPaused] = useState(false);
 
+  function handlePlayAndPause(val) {
+    updateIsPaused(val);
+  }
   let countRef = useRef(0);
   useEffect(() => {
     if (GameStart.restart) {
       countRef.current.innerHTML = `0:0:00`;
     }
-    if (GameStart.started === 1) {
+    if (GameStart.started && !isPaused) {
       const interval = setInterval(myTimer, 1000);
       function myTimer() {
         if (countRef.current.innerHTML === "") {
@@ -60,10 +64,10 @@ function AI() {
       }
       return () => clearInterval(interval);
     }
-  }, [GameStart.started, GameStart.restart]);
+  }, [GameStart.started, GameStart.restart, isPaused]);
   return (
     <div className="w-1/5 bg-yellow-50 h-screen">
-      {GameStart.started === 1 || GameStart.started === 2 ? (
+      {GameStart.started ? (
         <div className="flex flex-col justify-evenly h-1/2 mt-42">
           <div>Now playing</div>
           <div>Difficulty: {levels[DifficultyLevel.difficultyLevel]}</div>
@@ -74,9 +78,9 @@ function AI() {
             Errors: {DifficultyLevel.errors}
           </div>
           <div className="flex justify-around">
-            {GameStart.started === 1 ? (
+            {!isPaused ? (
               <div
-                onClick={() => GameStart.updateStarted(2)}
+                onClick={() => handlePlayAndPause(true)}
                 className="text-center cursor-pointer hover:text-purple-900"
               >
                 <PauseIcon className="size-6 m-auto cursor-pointer"></PauseIcon>
@@ -84,7 +88,7 @@ function AI() {
               </div>
             ) : (
               <div
-                onClick={() => GameStart.updateStarted(1)}
+                onClick={() => handlePlayAndPause(false)}
                 className="text-center cursor-pointer hover:text-purple-900"
               >
                 <PlayIcon className="size-6 m-auto cursor-pointer"></PlayIcon>
@@ -99,7 +103,7 @@ function AI() {
               <p className="text-[6px] tracking-[6px]">restart</p>
             </div>
             <div
-              onClick={() => GameStart.updateStarted(0)}
+              onClick={() => GameStart.updateStarted(false)}
               className="text-center cursor-pointer hover:text-red-900"
             >
               <StopIcon className="size-6 m-auto cursor-pointer"></StopIcon>
@@ -118,7 +122,7 @@ function AI() {
             </button>
             <button
               className="shadow-[6px_6px_0px_rgba(0,0,0,0.3)] hover:translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)] transition "
-              onClick={() => GameStart.updateStarted(1)}
+              onClick={() => GameStart.updateStarted(true)}
             >
               Play
             </button>

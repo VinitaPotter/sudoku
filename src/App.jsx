@@ -11,11 +11,14 @@ export const ShowPopupContext = createContext(false);
 function App() {
   const [difficultyLevel, updateDifficultyLevel] = useState(0);
   const [started, updateStarted] = useState(0);
+  const [restart, updateRestart] = useState(0);
   const [showPopup, updateShowPopup] = useState(false);
 
   return (
     <ShowPopupContext value={{ showPopup, updateShowPopup }}>
-      <GameStartContext value={{ started, updateStarted }}>
+      <GameStartContext
+        value={{ started, updateStarted, restart, updateRestart }}
+      >
         <DifficultyContext value={{ difficultyLevel, updateDifficultyLevel }}>
           <div className="flex w-screen justify-between">
             <Profile></Profile>

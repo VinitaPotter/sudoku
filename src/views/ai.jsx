@@ -10,7 +10,6 @@ import {
 import { GameStartContext } from "../App";
 import { ShowPopupContext } from "../App";
 import { DifficultyContext } from "../App";
-import Game from "../pages/game/game";
 
 function AI() {
   const GameStart = useContext(GameStartContext);
@@ -21,10 +20,12 @@ function AI() {
 
   let countRef = useRef(0);
   useEffect(() => {
+    if (GameStart.restart) {
+      countRef.current.innerHTML = `0:0:00`;
+    }
     if (GameStart.started === 1) {
       const interval = setInterval(myTimer, 1000);
       function myTimer() {
-        console.log({ data: countRef.current.innerHTML });
         if (countRef.current.innerHTML === "") {
           countRef.current.innerHTML = `0:0:00`;
         } else {
@@ -59,7 +60,7 @@ function AI() {
       }
       return () => clearInterval(interval);
     }
-  }, [GameStart.started]);
+  }, [GameStart.started, GameStart.restart]);
   return (
     <div className="w-1/5 bg-yellow-50 h-screen">
       {GameStart.started === 1 || GameStart.started === 2 ? (
@@ -88,7 +89,10 @@ function AI() {
                 <p className="text-[6px] tracking-[6px]">play</p>
               </div>
             )}
-            <div className="text-center cursor-pointer hover:text-purple-900">
+            <div
+              onClick={() => GameStart.updateRestart(true)}
+              className="text-center cursor-pointer hover:text-purple-900"
+            >
               <ArrowPathIcon className="size-6 m-auto cursor-pointer"></ArrowPathIcon>
               <p className="text-[6px] tracking-[6px]">restart</p>
             </div>

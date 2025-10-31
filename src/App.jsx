@@ -15,12 +15,20 @@ function App() {
   const [started, updateStarted] = useState(false);
   const [restart, updateRestart] = useState(0);
   const [showPopup, updateShowPopup] = useState(false);
+  const [downloading, updateDownloading] = useState(false);
   const location = useLocation();
 
   return (
     <ShowPopupContext value={{ showPopup, updateShowPopup }}>
       <GameStartContext
-        value={{ started, updateStarted, restart, updateRestart }}
+        value={{
+          started,
+          updateStarted,
+          restart,
+          updateRestart,
+          downloading,
+          updateDownloading,
+        }}
       >
         <DifficultyContext
           value={{
@@ -34,10 +42,12 @@ function App() {
             className={
               location.pathname === "/"
                 ? "flex w-screen justify-between"
+                : downloading
+                ? "flex justify-center w-screen"
                 : "flex w-screen"
             }
           >
-            <Profile></Profile>
+            {downloading ? "" : <Profile></Profile>}
             <Grid></Grid>
             {location.pathname === "/" ? <AI></AI> : ""}
           </div>

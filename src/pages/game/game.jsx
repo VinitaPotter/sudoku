@@ -165,7 +165,7 @@ function Game({ canDownload, children }) {
   }, [GameStart.restart]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col" id="sudoku-grid">
       <div>
         {winner ? (
           <>

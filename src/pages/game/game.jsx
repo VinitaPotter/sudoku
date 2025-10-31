@@ -25,7 +25,7 @@ function Game() {
   const [playableSudoku, updatePlayableSudoku] = useState([]);
 
   const [curNum, updateCurNum] = useState(0);
-  const [warning, updateWarning] = useState(0);
+  const [warning, updateWarning] = useState([-1, -1]);
   const [winner, updateWinner] = useState(false);
   const [userData, updateUserData] = useState([]);
 
@@ -45,21 +45,17 @@ function Game() {
     }
   }, [playableSudoku, GameStart.started]);
 
-  function handleCellClick(row, col) {
-    if (GameStart.started === 0) GameStart.updateStarted(1);
-
-    // const blockIndex = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-
+  function handleCellClick(row, col, num = 0) {
     updatePlayableSudoku((arr) => {
       const new_grid = arr.map((row) => [...row]);
-      new_grid[row][col] = curNum;
+      new_grid[row][col] = num;
       return new_grid;
     });
 
-    if (initial[row][col] !== curNum) {
-      updateWarning(() => col);
+    if (initial[row][col] !== num) {
+      updateWarning([row, col]);
       setTimeout(() => {
-        updateWarning(() => 0);
+        updateWarning([-1, -1]);
         updatePlayableSudoku((arr) => {
           const new_grid = arr.map((row) => [...row]);
           new_grid[row][col] = 0;
@@ -184,6 +180,7 @@ function Game() {
         userData={userData}
         handleCellClick={handleCellClick}
         warning={warning}
+        selectedNum={curNum}
       ></Grid>
       <NumberPad currentNumber={curNum} updateCurrentNumber={updateCurNum} />
     </div>

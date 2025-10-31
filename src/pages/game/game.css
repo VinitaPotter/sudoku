@@ -1,5 +1,5 @@
 .cell {
-  border: 1px solid grey;
+  border: 0.5px solid grey;
   cursor: pointer;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .warning {
-  background: red;
+  background: pink;
 }
 
 .custom-shadow {

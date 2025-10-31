@@ -5,7 +5,8 @@ import Grid from "./game-grid";
 import Difficulty from "./game-difficulty";
 import { DifficultyContext, GameStartContext } from "../../App";
 import { ShowPopupContext } from "../../App";
-function Game() {
+
+function Game({ canDownload, children }) {
   const GameStart = useContext(GameStartContext);
   const Popup = useContext(ShowPopupContext);
   const DifficultyLevel = useContext(DifficultyContext);
@@ -181,8 +182,13 @@ function Game() {
         handleCellClick={handleCellClick}
         warning={warning}
         selectedNum={curNum}
+        canDownload={canDownload}
       ></Grid>
-      <NumberPad currentNumber={curNum} updateCurrentNumber={updateCurNum} />
+      {canDownload ? (
+        <div>{children}</div>
+      ) : (
+        <NumberPad currentNumber={curNum} updateCurrentNumber={updateCurNum} />
+      )}
     </div>
   );
 }

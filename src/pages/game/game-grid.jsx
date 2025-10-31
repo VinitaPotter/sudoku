@@ -1,4 +1,11 @@
-function Grid({ grid, userData, handleCellClick, warning, selectedNum }) {
+function Grid({
+  grid,
+  userData,
+  handleCellClick,
+  warning,
+  selectedNum,
+  canDownload,
+}) {
   function handleOnClick(r, c) {
     if (selectedNum) handleCellClick(r, c, selectedNum);
   }
@@ -23,7 +30,11 @@ function Grid({ grid, userData, handleCellClick, warning, selectedNum }) {
       return true;
   }
   return (
-    <div className="w-72 m-auto border-t-2 border-l-2  border-pink-400 ">
+    <div
+      className={`w-72 m-auto border-t-2 border-l-2  border-pink-400 ${
+        canDownload ? "pointer-events-none" : ""
+      }`}
+    >
       {Object.entries(grid).map((row, rindex) => {
         return (
           <div

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
-import userPic from "../assets/userPictures/Image.png";
+import userPic from "../assets/userPictures/kawaii.webp";
 function Profile() {
   return (
     <div className="bg-pink-200  h-screen w-1/5 pt-20 text-purple-900">
@@ -8,7 +8,7 @@ function Profile() {
         <div className="mb-8">
           <img
             src={userPic}
-            className="h-48 w-48 m-auto rounded-xl border-8 border-2 border-amber-100 shadow-md shadow-rose-200)"
+            className="h-48 w-48 m-auto rounded-xl border-8 border-2 border-yellow-100 shadow-md shadow-rose-200)"
           />
         </div>
         <div className="text-4xl ">Sudoku</div>
@@ -17,8 +17,8 @@ function Profile() {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `flex hover:justify-center h-14 cursor-pointer justify-evenly items-center rounded-lg hover:!text-amber-100 hover:text-2xl  ${
-              isActive ? "text-2xl !text-amber-100" : ""
+            `flex hover:justify-center h-14 cursor-pointer justify-evenly items-center rounded-lg hover:!text-yellow-100 hover:text-2xl  ${
+              isActive ? "text-2xl !text-yellow-100" : ""
             }`
           }
           end
@@ -29,8 +29,8 @@ function Profile() {
         <NavLink
           to="learn"
           className={({ isActive }) =>
-            `flex hover:justify-center h-14 cursor-pointer justify-evenly items-center rounded-lg hover:!text-amber-100 hover:text-2xl  ${
-              isActive ? "text-2xl !text-amber-100" : ""
+            `flex hover:justify-center h-14 cursor-pointer justify-evenly items-center rounded-lg hover:!text-yellow-100 hover:text-2xl  ${
+              isActive ? "text-2xl !text-yellow-100" : ""
             }`
           }
           end
@@ -41,8 +41,8 @@ function Profile() {
         <NavLink
           to="download"
           className={({ isActive }) =>
-            `flex hover:justify-center h-14 cursor-pointer justify-evenly items-center rounded-lg hover:!text-amber-100 hover:text-2xl  ${
-              isActive ? "text-2xl !text-amber-100" : ""
+            `flex hover:justify-center h-14 cursor-pointer justify-evenly items-center rounded-lg hover:!text-yellow-100 hover:text-2xl  ${
+              isActive ? "text-2xl !text-yellow-100" : ""
             }`
           }
           end
@@ -53,8 +53,8 @@ function Profile() {
         <NavLink
           to="about"
           className={({ isActive }) =>
-            `flex hover:justify-center h-14 cursor-pointer justify-evenly items-center rounded-lg hover:!text-amber-100 hover:text-2xl  ${
-              isActive ? "text-2xl !text-amber-100" : ""
+            `flex hover:justify-center h-14 cursor-pointer justify-evenly items-center rounded-lg hover:!text-yellow-100 hover:text-2xl  ${
+              isActive ? "text-2xl !text-yellow-100" : ""
             }`
           }
           end

@@ -66,7 +66,7 @@ function AI() {
     }
   }, [GameStart.started, GameStart.restart, isPaused]);
   return (
-    <div className="w-1/5 bg-yellow-50 h-screen">
+    <div className="w-1/5 bg-yellow-100 h-screen">
       {GameStart.started ? (
         <div className="flex flex-col justify-evenly h-1/2 mt-42">
           <div>Now playing</div>
@@ -115,13 +115,13 @@ function AI() {
         <div>
           <div className="m-8 flex flex-col h-screen justify-center">
             <button
-              className="shadow-[6px_6px_0px_rgba(0,0,0,0.3)] hover:translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)] transition mb-8"
+              className="ring-2 shadow-[6px_6px_0px_rgba(0,0,0,0.3)] hover:translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)] transition mb-8"
               onClick={Popup.updateShowPopup}
             >
               Select difficulty
             </button>
             <button
-              className="shadow-[6px_6px_0px_rgba(0,0,0,0.3)] hover:translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)] transition "
+              className="ring-2 shadow-[6px_6px_0px_rgba(0,0,0,0.3)] hover:translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)] transition "
               onClick={() => GameStart.updateStarted(true)}
             >
               Play

@@ -64,8 +64,9 @@ function Game({ canDownload, children }) {
           return new_grid;
         });
       }, 500);
+    } else {
+      updateUserData((prev) => [...prev, [row, col]]);
     }
-    updateUserData((prev) => [...prev, curNum]);
   }
 
   function setGrid(data) {
@@ -165,7 +166,7 @@ function Game({ canDownload, children }) {
   }, [GameStart.restart]);
 
   return (
-    <div className="flex flex-col" id="sudoku-grid">
+    <div className="mt-auto mb-auto" id="sudoku-grid">
       <div>
         {winner ? (
           <>
@@ -189,7 +190,12 @@ function Game({ canDownload, children }) {
       {canDownload ? (
         <div>{children}</div>
       ) : (
-        <NumberPad currentNumber={curNum} updateCurrentNumber={updateCurNum} />
+        <div className="mt-10">
+          <NumberPad
+            currentNumber={curNum}
+            updateCurrentNumber={updateCurNum}
+          />
+        </div>
       )}
     </div>
   );

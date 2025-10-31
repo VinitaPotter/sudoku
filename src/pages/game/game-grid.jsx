@@ -16,7 +16,6 @@ function Grid({
   }
 
   function showWarning(r = -1, c = -1) {
-    console.log({ colwarn: r });
     let wr = warning[0];
     let wc = warning[1];
     if (wr < 0 || wc < 0) return;
@@ -47,17 +46,13 @@ function Grid({
                   key={col[0]}
                   className={`h-8 w-8  nth-[3n]:border-r-2 border-pink-400  ${
                     showWarning(row[0], col[0])
-                      ? "bg-purple-300 opacity-60 text-yellow-500"
+                      ? "bg-purple-100 bg-opacity-40 "
                       : ""
                   } ${
                     warning[0] === row[0] && warning[1] === col[0]
                       ? "text-red-500"
                       : ""
-                  } ${
-                    userData.includes(col[0])
-                      ? "text-purple-900 font-medium"
-                      : "text-pink-300 font-black"
-                  }`}
+                  } `}
                 >
                   <div className="cell">
                     {col[1] === 0 ? (
@@ -77,7 +72,13 @@ function Grid({
                         />
                       </div>
                     ) : (
-                      <div className=" h-8 w-8 block  content-center">
+                      <div
+                        className={`h-8 w-8 block  content-center ${
+                          userData.includes(col[0])
+                            ? "text-purple-900 font-medium"
+                            : "text-pink-300 font-black"
+                        }`}
+                      >
                         {col[1]}
                       </div>
                     )}

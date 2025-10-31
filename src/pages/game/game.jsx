@@ -46,15 +46,14 @@ function Game() {
   }, [playableSudoku, GameStart.started]);
 
   function handleCellClick(row, col) {
-    // if (GameStart.started === 0) {
-    //   console.log("run only here");
-    //   GameStart.updateStarted(1);
-    // }
+    if (GameStart.started === 0) GameStart.updateStarted(1);
 
     // const blockIndex = Math.floor(row / 3) * 3 + Math.floor(col / 3);
 
     updatePlayableSudoku((arr) => {
-      return [...arr, (arr[row][col] = curNum)];
+      const new_grid = arr.map((row) => [...row]);
+      new_grid[row][col] = curNum;
+      return new_grid;
     });
 
     if (initial[row][col] !== curNum) {
@@ -62,14 +61,17 @@ function Game() {
       setTimeout(() => {
         updateWarning(() => 0);
         updatePlayableSudoku((arr) => {
-          return [...arr, (arr[row][col] = 0)];
+          const new_grid = arr.map((row) => [...row]);
+          new_grid[row][col] = 0;
+          return new_grid;
         });
       }, 500);
     }
+    updateUserData((prev) => [...prev, curNum]);
   }
 
-  function setGrid() {
-    let clone = JSON.parse(JSON.stringify(initial));
+  function setGrid(data) {
+    let clone = JSON.parse(JSON.stringify(data));
     updatePlayableSudoku(clone);
     let recur = 0;
     let vanish = 40;
@@ -83,6 +85,7 @@ function Game() {
 
       if (clone[random_row][random_col] === 0) {
         remove_number();
+        //TODO: CHECK IF SUDOKU HAS UNIQUE SOLUTIONS AFTER REMOVING NUMBER
         return;
       }
       clone[random_row][random_col] = 0;
@@ -94,8 +97,6 @@ function Game() {
     remove_number();
 
     updatePlayableSudoku(clone);
-
-    // updateUserData((prev) => [...removed_cells]);
   }
 
   function shuffleData() {
@@ -107,21 +108,53 @@ function Game() {
       initial_clone[r2] = [...temp_row];
     };
 
-    const random_one = Math.floor(Math.random() * 9);
-    const random_two = Math.floor(Math.random() * 9);
+    const switch_cols = (c1, c2) => {
+      for (let i = 0; i < initial_clone.length; i++) {
+        let temp_c = initial_clone[i][c1];
+        initial_clone[i][c1] = initial_clone[i][c2];
+        initial_clone[i][c2] = temp_c;
+      }
+    };
 
-    switch_rows(random_one, random_two);
+    const swap_nums = () => {
+      const r_one = Math.floor(Math.random() * 9) + 1;
+      const r_two = Math.floor(Math.random() * 9) + 1;
+      if (r_one === r_two) return;
+      for (let i = 0; i < initial_clone.length; i++) {
+        let idx1 = initial_clone[i].findIndex((n) => n == r_one);
+        let idx2 = initial_clone[i].findIndex((n) => n == r_two);
+        if (idx1 !== -1 && idx2 !== -1) {
+          initial_clone[i][idx1] = r_two;
+          initial_clone[i][idx2] = r_one;
+        }
+      }
+    };
+
+    const randomize = () => {
+      for (let i = 0; i < 10; i++) {
+        const random_block = Math.floor(Math.random() * 3);
+        const start = random_block * 3;
+        const random_one = start + Math.floor(Math.random() * 3);
+        const random_two = start + Math.floor(Math.random() * 3);
+        switch_rows(random_one, random_two);
+        switch_cols(random_two, random_one);
+        if (random_one !== random_two) swap_nums();
+      }
+    };
+
+    randomize();
+
     return initial_clone;
   }
   function setInitialData() {
     let shuffled_data = shuffleData();
     updateInitial([...shuffled_data]);
-    setGrid();
+    setGrid(shuffled_data);
   }
 
   useEffect(() => {
     setInitialData();
-  }, [DifficultyContext.Difficulty, GameStart.started]);
+  }, [DifficultyLevel.Difficulty, GameStart.started]);
 
   useEffect(() => {
     if (GameStart.restart) {

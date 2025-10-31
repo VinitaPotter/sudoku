@@ -64,7 +64,7 @@ function Grid({
                       <div className="">
                         <input
                           readOnly={selectedNum}
-                          className="h-8 w-8"
+                          className="h-8 w-8 cursor-pointer"
                           type="number"
                           min="1"
                           max="9"

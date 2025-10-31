@@ -55,6 +55,7 @@ function Game({ canDownload, children }) {
 
     if (initial[row][col] !== num) {
       updateWarning([row, col]);
+      DifficultyLevel.updateErrors(++DifficultyLevel.errors);
       setTimeout(() => {
         updateWarning([-1, -1]);
         updatePlayableSudoku((arr) => {
@@ -158,6 +159,7 @@ function Game({ canDownload, children }) {
       updateWinner(false);
       updateCurNum(0);
       setInitialData();
+      DifficultyLevel.updateErrors(0);
       GameStart.updateRestart(false);
     }
   }, [GameStart.restart]);

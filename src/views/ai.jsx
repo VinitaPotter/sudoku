@@ -70,7 +70,9 @@ function AI() {
           <div className="text-xl ">
             <div className="text-4xl font-medium pt-8" ref={countRef}></div>
           </div>
-          <div>Errors: 0</div>
+          <div className="text-red-400 font-semibold">
+            Errors: {DifficultyLevel.errors}
+          </div>
           <div className="flex justify-around">
             {GameStart.started === 1 ? (
               <div

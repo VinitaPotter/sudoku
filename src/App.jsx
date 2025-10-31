@@ -11,6 +11,7 @@ export const ShowPopupContext = createContext(false);
 
 function App() {
   const [difficultyLevel, updateDifficultyLevel] = useState(0);
+  const [errors, updateErrors] = useState(0);
   const [started, updateStarted] = useState(0);
   const [restart, updateRestart] = useState(0);
   const [showPopup, updateShowPopup] = useState(false);
@@ -21,7 +22,14 @@ function App() {
       <GameStartContext
         value={{ started, updateStarted, restart, updateRestart }}
       >
-        <DifficultyContext value={{ difficultyLevel, updateDifficultyLevel }}>
+        <DifficultyContext
+          value={{
+            difficultyLevel,
+            updateDifficultyLevel,
+            errors,
+            updateErrors,
+          }}
+        >
           <div
             className={
               location.pathname === "/"
